@@ -1,0 +1,53 @@
+Group 7
+
+
+Topic: 
+
+Impact of Artificial Intelligence as a tool to support students' learning experience.
+
+
+Research Questions:
+
+1. Students who use AI tools complete their academic tasks in less time while maintaining or improving the quality of their work compared to those who do not use AI tools. 
+
+2. The more frequently AI tools are used, the higher the level of motivation and engagement perceived during the study. 
+
+3. Students who include AI tools into their study routines demonstrate greater long‑term retention of learned material compared to those who do not.
+
+
+Survey Question:
+
+1. What’s your age: __________
+
+
+2. What’s your gender:
+	[ ] Male
+        [ ] Female
+        [ ] Other
+
+
+3. What academic program you belong to:
+        [ ] Data science
+        [ ] Business Informatics
+        [ ] Computer science 
+        [ ] Other: _________________________
+
+
+4. Do you use AI tools (like ChatGPT, Grammarly, etc) for academic purposes?
+	[ ] Yes
+	[ ] No
+
+
+5. How many hours a week do you use AI tools for academic purposes?  _____________
+
+
+6. Select the statement(s) you most identify with regarding the use of AI tools for academic purposes: (You may select more than one)
+	[ ] Using AI tools has helped me save time when completing academic tasks.
+	[ ] Using AI tools has helped me improve the quality of my academic work.
+	[ ] Using AI tools has increased my motivation to learn new things.
+	[ ] Using AI tools has helped me better understand and retain the material I study.
+	[ ] Using AI tools has made it harder for me to retain information in the long term.
+	[ ] Using AI tools has decreased my confidence in my own learning abilities.
+	[ ] Using AI tools has lowered the quality of my academic work.
+	[ ] Using AI tools has not caused any significant changes in my academic performance.
+	[ ] I do not use AI tools for academic purposes.
