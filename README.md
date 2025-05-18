@@ -45,6 +45,7 @@ All tasks are implemented in R with a clean, reproducible structure.
 ##  Repository Structure
 
 survey-methods-assignment2-group7/
+
 ├── data/ # Raw data files (e.g., group7.xlsx, survey question text)
 
 ├── results/ # Final outputs (.Rmd report, .pdf report, presentation slides)
