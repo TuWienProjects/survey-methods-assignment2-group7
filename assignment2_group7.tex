@@ -280,18 +280,14 @@ prepare the data for further processing.
   \StringTok{"ai\_opinions"}
 \NormalTok{)}
 
+\CommentTok{\# The value of this response for ai\_hours was 1{-}2, so we averaged it}
+\NormalTok{survey\_data}\SpecialCharTok{$}\NormalTok{ai\_hours[}\DecValTok{62}\NormalTok{] }\OtherTok{\textless{}{-}} \FloatTok{1.5}
+
 \CommentTok{\# Convert age and ai\_hours to numeric}
 \NormalTok{survey\_data}\SpecialCharTok{$}\NormalTok{age }\OtherTok{\textless{}{-}} \FunctionTok{as.numeric}\NormalTok{(survey\_data}\SpecialCharTok{$}\NormalTok{age)}
 \NormalTok{survey\_data}\SpecialCharTok{$}\NormalTok{ai\_hours }\OtherTok{\textless{}{-}} \FunctionTok{as.numeric}\NormalTok{(survey\_data}\SpecialCharTok{$}\NormalTok{ai\_hours)}
-\end{Highlighting}
-\end{Shaded}
 
-\begin{verbatim}
-## Warning: NAs introduced by coercion
-\end{verbatim}
 
-\begin{Shaded}
-\begin{Highlighting}[]
 \CommentTok{\# Recheck structure}
 \FunctionTok{str}\NormalTok{(survey\_data)}
 \end{Highlighting}
@@ -442,25 +438,14 @@ levels differ across these groups.
   \AttributeTok{labels =} \FunctionTok{c}\NormalTok{(}\StringTok{"0–2 hrs"}\NormalTok{, }\StringTok{"3–5 hrs"}\NormalTok{, }\StringTok{"6–10 hrs"}\NormalTok{, }\StringTok{"10+ hrs"}\NormalTok{)}
 \NormalTok{)}
 
-\CommentTok{\# Summarize motivation rate by usage group}
-\NormalTok{rq2\_summary }\OtherTok{\textless{}{-}}\NormalTok{ survey\_data }\SpecialCharTok{\%\textgreater{}\%}
-  \FunctionTok{group\_by}\NormalTok{(usage\_group) }\SpecialCharTok{\%\textgreater{}\%}
-  \FunctionTok{summarise}\NormalTok{(}
-    \AttributeTok{MotivationRate =} \FunctionTok{mean}\NormalTok{(op\_Using.AI.tools.has.increased.my.motivati, }\AttributeTok{na.rm =} \ConstantTok{TRUE}\NormalTok{),}
-    \AttributeTok{n =} \FunctionTok{n}\NormalTok{()}
-\NormalTok{  )}
-
-\CommentTok{\# Plot}
-\FunctionTok{ggplot}\NormalTok{(rq2\_summary, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ usage\_group, }\AttributeTok{y =}\NormalTok{ MotivationRate)) }\SpecialCharTok{+}
-  \FunctionTok{geom\_col}\NormalTok{(}\AttributeTok{fill =} \StringTok{"\#00BFC4"}\NormalTok{) }\SpecialCharTok{+}
-  \FunctionTok{geom\_text}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{label =}\NormalTok{ scales}\SpecialCharTok{::}\FunctionTok{percent}\NormalTok{(MotivationRate, }\AttributeTok{accuracy =} \DecValTok{1}\NormalTok{)), }\AttributeTok{vjust =} \SpecialCharTok{{-}}\FloatTok{0.3}\NormalTok{, }\AttributeTok{size =} \FloatTok{4.5}\NormalTok{) }\SpecialCharTok{+}
-  \FunctionTok{scale\_y\_continuous}\NormalTok{(}\AttributeTok{labels =}\NormalTok{ scales}\SpecialCharTok{::}\FunctionTok{percent\_format}\NormalTok{(}\AttributeTok{accuracy =} \DecValTok{1}\NormalTok{), }\AttributeTok{limits =} \FunctionTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{1}\NormalTok{)) }\SpecialCharTok{+}
-  \FunctionTok{labs}\NormalTok{(}
-    \AttributeTok{title =} \StringTok{"Motivation by Weekly AI Usage"}\NormalTok{,}
-    \AttributeTok{subtitle =} \StringTok{"Proportion of students who report increased motivation"}\NormalTok{,}
-    \AttributeTok{x =} \StringTok{"Weekly AI Usage (hours)"}\NormalTok{,}
-    \AttributeTok{y =} \StringTok{"Motivated (TRUE responses)"}
-\NormalTok{  ) }\SpecialCharTok{+}
+\CommentTok{\# Boxplot by increase\_motivation}
+\FunctionTok{ggplot}\NormalTok{(survey\_data, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ op\_Using.AI.tools.has.increased.my.motivati, }\AttributeTok{y =}\NormalTok{ ai\_hours)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_boxplot}\NormalTok{(}\AttributeTok{fill =} \StringTok{"\#00BFC4"}\NormalTok{, }\AttributeTok{color =} \StringTok{"\#005DC4"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{scale\_x\_discrete}\NormalTok{(}\AttributeTok{labels =} \FunctionTok{c}\NormalTok{(}\StringTok{"FALSE"} \OtherTok{=} \StringTok{"No"}\NormalTok{, }\StringTok{"TRUE"} \OtherTok{=} \StringTok{"Yes"}\NormalTok{)) }\SpecialCharTok{+}
+  \FunctionTok{labs}\NormalTok{(}\AttributeTok{title =} \StringTok{"Weekly use of AI vs Motivation Increase"}\NormalTok{,}
+       \AttributeTok{subtitle =} \StringTok{"Comparison of AI tool usage by perceived motivation impact"}\NormalTok{,}
+       \AttributeTok{x =} \StringTok{"Reported Increase in Motivation"}\NormalTok{,}
+       \AttributeTok{y =} \StringTok{"Weekly AI Usage (hours)"}\NormalTok{) }\SpecialCharTok{+}
   \FunctionTok{theme\_minimal}\NormalTok{(}\AttributeTok{base\_size =} \DecValTok{13}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
@@ -468,31 +453,25 @@ levels differ across these groups.
 \includegraphics{assignment2_group7_files/figure-latex/plot-rq2-1.pdf}
 \#\#\#\# Interpretation (RQ2)
 
-The plot illustrates the proportion of students who reported feeling
-more motivated to study as a result of using AI tools, segmented by how
-many hours per week they use them.
+To explore this hypothesis, we used a boxplot to compare the
+distribution of weekly hours students spend using AI tools, grouped by
+whether they report an increase in motivation due to AI use.
 
-\begin{itemize}
-\tightlist
-\item
-  Students who used AI tools for \textbf{3--5 hours per week} showed the
-  \textbf{highest motivation rate} (61\%).
-\item
-  Lower motivation was reported by students using AI tools \textbf{less
-  than 2 hours (48\%)} or \textbf{6--10 hours (50\%)}.
-\item
-  The group using AI tools for \textbf{10+ hours} reported 56\%
-  motivation.
-\item
-  One group with \texttt{NA} in \texttt{ai\_hours} showed 100\%
-  motivation, which suggests incomplete data and should be excluded from
-  final inference.
-\end{itemize}
+This boxplot displays summary statistics for each group (minimum,
+maximum, median, quartiles, and outliers) allowing us to get a visual
+comparison of the usage patterns.
 
-These findings suggest a \textbf{moderate positive relationship} between
-AI tool usage and perceived motivation, though the relationship is
-\textbf{not linear}. It appears that \textbf{moderate usage} may be more
-motivating than very low or very high usage.
+Both groups (motivated and not motivated) show very similar
+distributions. The median weekly usage is \textasciitilde5 hours for
+both, with the first quartile around 3-4 hours, and the third quartile
+\textasciitilde10 hours. There is a single outlier in the ``Yes''
+(motivated) group, but it does not have a strong impact in the general
+tendency of the group.
+
+Based on this visualization, there is no noticeable difference in AI
+usage between the groups. At this point, this visualization suggests
+there is not a strong correlation between frequency of AI tool usage and
+perceived motivation increase to learn new things.
 
 \subsubsection{6.3 RQ3: Retention by Weekly AI Tool
 Usage}\label{rq3-retention-by-weekly-ai-tool-usage}
@@ -544,7 +523,7 @@ students' perceived ability to understand and retain learning material.
   \begin{itemize}
   \tightlist
   \item
-    \textbf{0--2 hours/week}: 76\%
+    \textbf{0--2 hours/week}: 73\%
   \item
     \textbf{10+ hours/week}: 62\%
   \end{itemize}
@@ -584,7 +563,7 @@ the typical intensity of AI usage.
  & vars & n & mean & sd & median & trimmed & mad & min & max & range & skew & kurtosis & se\\
 \midrule
 age & 1 & 98 & 25.82 & 4.51 & 25.5 & 25.48 & 3.71 & 4.0 & 45 & 41.0 & 0.30 & 8.05 & 0.46\\
-ai\_hours & 2 & 97 & 7.02 & 5.73 & 5.0 & 6.15 & 4.45 & 0.5 & 28 & 27.5 & 1.32 & 1.25 & 0.58\\
+ai\_hours & 2 & 98 & 6.96 & 5.72 & 5.0 & 6.10 & 4.45 & 0.5 & 28 & 27.5 & 1.32 & 1.27 & 0.58\\
 \bottomrule
 \end{longtable}
 
@@ -602,10 +581,10 @@ weekly AI tool usage among the 98 student respondents:
   likely reflects a data entry error or outlier.
 \item
   For \textbf{weekly AI usage}, students report using AI tools for an
-  average of \textbf{7.0 hours} per week (median = 5.0 hours), with
-  values ranging from \textbf{0.5 to 28 hours}. The distribution is
-  positively skewed (\textbf{skew = 1.32}), indicating that a few
-  students reported very high usage levels.
+  average of \textbf{\textasciitilde7.0 hours} per week (median = 5.0
+  hours), with values ranging from \textbf{0.5 to 28 hours}. The
+  distribution is positively skewed (\textbf{skew = 1.32}), indicating
+  that a few students reported very high usage levels.
 \end{itemize}
 
 These figures offer a useful profile of the surveyed students and the
@@ -732,15 +711,14 @@ weekly hours spent using AI tools predicts self-reported motivation.
 ## 
 ## Coefficients:
 ##             Estimate Std. Error z value Pr(>|z|)
-## (Intercept) 0.121413   0.323580   0.375    0.707
-## ai_hours    0.009242   0.035969   0.257    0.797
+## (Intercept) 0.163110   0.320662   0.509    0.611
+## ai_hours    0.005999   0.035767   0.168    0.867
 ## 
 ## (Dispersion parameter for binomial family taken to be 1)
 ## 
-##     Null deviance: 133.63  on 96  degrees of freedom
-## Residual deviance: 133.57  on 95  degrees of freedom
-##   (1 observation deleted due to missingness)
-## AIC: 137.57
+##     Null deviance: 134.83  on 97  degrees of freedom
+## Residual deviance: 134.81  on 96  degrees of freedom
+## AIC: 138.81
 ## 
 ## Number of Fisher Scoring iterations: 3
 \end{verbatim}
@@ -756,12 +734,12 @@ number of hours they reported using such tools per week.
 \begin{itemize}
 \tightlist
 \item
-  The coefficient for \texttt{ai\_hours} was \textbf{0.0092}, with a
-  \emph{p}-value of \textbf{0.797}, indicating that the relationship is
+  The coefficient for \texttt{ai\_hours} was \textbf{0.0059}, with a
+  \emph{p}-value of \textbf{0.867}, indicating that the relationship is
   not statistically significant.
 \item
   The model suggests that each additional hour of AI tool use is
-  associated with only a \textbf{0.9\% increase in the log-odds of
+  associated with only a \textbf{0.6\% increase in the log-odds of
   reporting increased motivation}, which is negligible and not reliable
   based on this data.
 \end{itemize}
@@ -796,17 +774,16 @@ predicts whether students report improved retention and understanding.
 ## 
 ## Coefficients:
 ##             Estimate Std. Error z value Pr(>|z|)    
-## (Intercept)  1.79423    0.41994   4.273 1.93e-05 ***
-## ai_hours    -0.05085    0.04148  -1.226     0.22    
+## (Intercept)  1.66799    0.40572   4.111 3.94e-05 ***
+## ai_hours    -0.04174    0.04108  -1.016     0.31    
 ## ---
 ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 ## 
 ## (Dispersion parameter for binomial family taken to be 1)
 ## 
-##     Null deviance: 95.959  on 96  degrees of freedom
-## Residual deviance: 94.513  on 95  degrees of freedom
-##   (1 observation deleted due to missingness)
-## AIC: 98.513
+##     Null deviance: 99.178  on 97  degrees of freedom
+## Residual deviance: 98.182  on 96  degrees of freedom
+## AIC: 102.18
 ## 
 ## Number of Fisher Scoring iterations: 4
 \end{verbatim}
@@ -822,8 +799,8 @@ improvement in retention and understanding of course material.
 \begin{itemize}
 \tightlist
 \item
-  The coefficient for \texttt{ai\_hours} was \textbf{-0.0508} with a
-  \emph{p}-value of \textbf{0.22}, indicating \textbf{no statistically
+  The coefficient for \texttt{ai\_hours} was \textbf{-0.0417} with a
+  \emph{p}-value of \textbf{0.31}, indicating \textbf{no statistically
   significant relationship}.
 \item
   While the negative coefficient suggests that higher AI usage might
@@ -838,19 +815,16 @@ AI tools have improved their long-term learning retention.
 \subsection{10. Appendix}\label{appendix}
 
 \begin{verbatim}
-## R version 4.4.3 (2025-02-28 ucrt)
-## Platform: x86_64-w64-mingw32/x64
-## Running under: Windows 11 x64 (build 22000)
+## R version 4.4.3 (2025-02-28)
+## Platform: aarch64-apple-darwin20
+## Running under: macOS Sequoia 15.4.1
 ## 
 ## Matrix products: default
-## 
+## BLAS:   /Library/Frameworks/R.framework/Versions/4.4-arm64/Resources/lib/libRblas.0.dylib 
+## LAPACK: /Library/Frameworks/R.framework/Versions/4.4-arm64/Resources/lib/libRlapack.dylib;  LAPACK version 3.12.0
 ## 
 ## locale:
-## [1] LC_COLLATE=English_United States.utf8 
-## [2] LC_CTYPE=English_United States.utf8   
-## [3] LC_MONETARY=English_United States.utf8
-## [4] LC_NUMERIC=C                          
-## [5] LC_TIME=English_United States.utf8    
+## [1] en_US.UTF-8/en_US.UTF-8/en_US.UTF-8/C/en_US.UTF-8/en_US.UTF-8
 ## 
 ## time zone: Europe/Vienna
 ## tzcode source: internal
@@ -859,23 +833,23 @@ AI tools have improved their long-term learning retention.
 ## [1] stats     graphics  grDevices utils     datasets  methods   base     
 ## 
 ## other attached packages:
-## [1] tidyr_1.3.1      kableExtra_1.4.0 knitr_1.50       likert_1.3.5    
-## [5] xtable_1.8-4     psych_2.5.3      ggplot2_3.5.2    dplyr_1.1.4     
+## [1] tidyr_1.3.1      kableExtra_1.4.0 knitr_1.49       likert_1.3.5    
+## [5] xtable_1.8-4     psych_2.5.3      ggplot2_3.5.1    dplyr_1.1.4     
 ## [9] readxl_1.4.5    
 ## 
 ## loaded via a namespace (and not attached):
-##  [1] generics_0.1.3    xml2_1.3.8        stringi_1.8.4     lattice_0.22-6   
+##  [1] generics_0.1.3    xml2_1.3.7        stringi_1.8.4     lattice_0.22-6   
 ##  [5] digest_0.6.37     magrittr_2.0.3    evaluate_1.0.3    grid_4.4.3       
-##  [9] fastmap_1.2.0     cellranger_1.1.0  plyr_1.8.9        tinytex_0.57     
-## [13] gridExtra_2.3     purrr_1.0.4       viridisLite_0.4.2 scales_1.3.0     
-## [17] mnormt_2.1.1      cli_3.6.4         rlang_1.1.5       munsell_0.5.1    
-## [21] withr_3.0.2       yaml_2.3.10       tools_4.4.3       parallel_4.4.3   
-## [25] reshape2_1.4.4    colorspace_2.1-1  vctrs_0.6.5       R6_2.6.1         
-## [29] lifecycle_1.0.4   stringr_1.5.1     pkgconfig_2.0.3   pillar_1.10.2    
-## [33] gtable_0.3.6      glue_1.8.0        Rcpp_1.0.14       systemfonts_1.2.2
-## [37] xfun_0.51         tibble_3.2.1      tidyselect_1.2.1  rstudioapi_0.17.1
-## [41] farver_2.1.2      htmltools_0.5.8.1 nlme_3.1-167      rmarkdown_2.29   
-## [45] svglite_2.1.3     labeling_0.4.3    compiler_4.4.3
+##  [9] fastmap_1.2.0     cellranger_1.1.0  plyr_1.8.9        gridExtra_2.3    
+## [13] purrr_1.0.4       viridisLite_0.4.2 scales_1.3.0      mnormt_2.1.1     
+## [17] cli_3.6.4         rlang_1.1.5       munsell_0.5.1     withr_3.0.2      
+## [21] yaml_2.3.10       tools_4.4.3       parallel_4.4.3    reshape2_1.4.4   
+## [25] colorspace_2.1-1  vctrs_0.6.5       R6_2.6.1          lifecycle_1.0.4  
+## [29] stringr_1.5.1     pkgconfig_2.0.3   pillar_1.10.1     gtable_0.3.6     
+## [33] glue_1.8.0        Rcpp_1.0.14       systemfonts_1.2.1 xfun_0.51        
+## [37] tibble_3.2.1      tidyselect_1.2.1  rstudioapi_0.17.1 farver_2.1.2     
+## [41] htmltools_0.5.8.1 nlme_3.1-167      rmarkdown_2.29    svglite_2.1.3    
+## [45] labeling_0.4.3    compiler_4.4.3
 \end{verbatim}
 
 \end{document}
