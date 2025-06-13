@@ -1,8 +1,12 @@
 ---
 title: "Survey Methods Assignment 2 – Group 7"
-author: "Group 7:Bashir Muhammad Sajid (52400204), Member2, Member3"
+author: "Group 7:Bashir Muhammad Sajid (52400204), Nicolas Bernal (12347489), Emma Desbois (12444747)"
 date: "`r Sys.Date()`"
 output:
+  html_document:
+    toc: true
+    toc_depth: '3'
+    df_print: paged
   pdf_document:
     toc: true
     toc_depth: 3
@@ -10,10 +14,6 @@ output:
     fig_caption: true
     latex_engine: xelatex
     keep_tex: true
-  html_document:
-    toc: true
-    toc_depth: '3'
-    df_print: paged
 subtitle: 105.708 Data Acquisition and Survey Methods (VU 2.0), Summer 2025
 ---
 
