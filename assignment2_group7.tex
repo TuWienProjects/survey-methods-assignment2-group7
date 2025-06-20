@@ -131,7 +131,7 @@
 2025}
 \author{Group 7:Bashir Muhammad Sajid (52400204), Nicolas Bernal
 (12347489), Emma Desbois (12444747)}
-\date{2025-06-13}
+\date{2025-06-20}
 
 \begin{document}
 \maketitle
@@ -287,6 +287,10 @@ prepare the data for further processing.
 \CommentTok{\# Convert age and ai\_hours to numeric}
 \NormalTok{survey\_data}\SpecialCharTok{$}\NormalTok{age }\OtherTok{\textless{}{-}} \FunctionTok{as.numeric}\NormalTok{(survey\_data}\SpecialCharTok{$}\NormalTok{age)}
 \NormalTok{survey\_data}\SpecialCharTok{$}\NormalTok{ai\_hours }\OtherTok{\textless{}{-}} \FunctionTok{as.numeric}\NormalTok{(survey\_data}\SpecialCharTok{$}\NormalTok{ai\_hours)}
+
+
+\CommentTok{\# This value is clearly wrong (4) so we changed it to the mean of ages}
+\NormalTok{survey\_data}\SpecialCharTok{$}\NormalTok{age[}\DecValTok{55}\NormalTok{] }\OtherTok{\textless{}{-}} \FunctionTok{round}\NormalTok{(}\FunctionTok{mean}\NormalTok{(survey\_data}\SpecialCharTok{$}\NormalTok{age))}
 
 
 \CommentTok{\# Recheck structure}
@@ -563,8 +567,8 @@ the typical intensity of AI usage.
 \toprule
  & vars & n & mean & sd & median & trimmed & mad & min & max & range & skew & kurtosis & se\\
 \midrule
-age & 1 & 98 & 25.82 & 4.51 & 25.5 & 25.48 & 3.71 & 4.0 & 45 & 41.0 & 0.30 & 8.05 & 0.46\\
-ai\_hours & 2 & 98 & 6.96 & 5.72 & 5.0 & 6.10 & 4.45 & 0.5 & 28 & 27.5 & 1.32 & 1.27 & 0.58\\
+age & 1 & 98 & 26.04 & 3.93 & 26 & 25.52 & 2.97 & 20.0 & 45 & 25.0 & 2.03 & 6.09 & 0.40\\
+ai\_hours & 2 & 98 & 6.96 & 5.72 & 5 & 6.10 & 4.45 & 0.5 & 28 & 27.5 & 1.32 & 1.27 & 0.58\\
 \bottomrule
 \end{longtable}
 
@@ -576,10 +580,10 @@ weekly AI tool usage among the 98 student respondents:
 \begin{itemize}
 \tightlist
 \item
-  The \textbf{average age} of participants is \textbf{25.8 years}, with
-  a range from \textbf{4 to 45}. The distribution appears fairly
-  symmetric (skew = 0.30), though the extreme minimum value of 4 years
-  likely reflects a data entry error or outlier.
+  The \textbf{average age} of participants is \textbf{26.04 years}, with
+  a range from \textbf{20 to 45}. The distribution appears to be
+  asymmetric (skew = 2.03), indicating a long right tail. This suggests
+  that the largest age values are potential outliers.
 \item
   For \textbf{weekly AI usage}, students report using AI tools for an
   average of \textbf{\textasciitilde7.0 hours} per week (median = 5.0
@@ -818,7 +822,7 @@ AI tools have improved their long-term learning retention.
 \begin{verbatim}
 ## R version 4.4.3 (2025-02-28)
 ## Platform: aarch64-apple-darwin20
-## Running under: macOS Sequoia 15.4.1
+## Running under: macOS Sequoia 15.5
 ## 
 ## Matrix products: default
 ## BLAS:   /Library/Frameworks/R.framework/Versions/4.4-arm64/Resources/lib/libRblas.0.dylib 

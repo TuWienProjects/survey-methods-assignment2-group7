@@ -11,7 +11,7 @@
 
 <meta name="author" content="Group 7:Bashir Muhammad Sajid (52400204), Nicolas Bernal (12347489), Emma Desbois (12444747)" />
 
-<meta name="date" content="2025-06-13" />
+<meta name="date" content="2025-06-20" />
 
 <title>Survey Methods Assignment 2 – Group 7</title>
 
@@ -1850,7 +1850,7 @@ display: none;
 2.0), Summer 2025</h3>
 <h4 class="author">Group 7:Bashir Muhammad Sajid (52400204), Nicolas
 Bernal (12347489), Emma Desbois (12444747)</h4>
-<h4 class="date">2025-06-13</h4>
+<h4 class="date">2025-06-20</h4>
 
 </div>
 
@@ -2007,6 +2007,10 @@ survey_data$ai_hours[62] &lt;- 1.5
 # Convert age and ai_hours to numeric
 survey_data$age &lt;- as.numeric(survey_data$age)
 survey_data$ai_hours &lt;- as.numeric(survey_data$ai_hours)
+
+
+# This value is clearly wrong (4) so we changed it to the mean of ages
+survey_data$age[55] &lt;- round(mean(survey_data$age))
 
 
 # Recheck structure
@@ -2280,37 +2284,37 @@ age
 98
 </td>
 <td style="text-align:right;">
-25.82
+26.04
 </td>
 <td style="text-align:right;">
-4.51
+3.93
 </td>
 <td style="text-align:right;">
-25.5
+26
 </td>
 <td style="text-align:right;">
-25.48
+25.52
 </td>
 <td style="text-align:right;">
-3.71
+2.97
 </td>
 <td style="text-align:right;">
-4.0
+20.0
 </td>
 <td style="text-align:right;">
 45
 </td>
 <td style="text-align:right;">
-41.0
+25.0
 </td>
 <td style="text-align:right;">
-0.30
+2.03
 </td>
 <td style="text-align:right;">
-8.05
+6.09
 </td>
 <td style="text-align:right;">
-0.46
+0.40
 </td>
 </tr>
 <tr>
@@ -2330,7 +2334,7 @@ ai_hours
 5.72
 </td>
 <td style="text-align:right;">
-5.0
+5
 </td>
 <td style="text-align:right;">
 6.10
@@ -2364,11 +2368,11 @@ ai_hours
 <p>The summary statistics provide insights into the age distribution and
 weekly AI tool usage among the 98 student respondents:</p>
 <ul>
-<li>The <strong>average age</strong> of participants is <strong>25.8
-years</strong>, with a range from <strong>4 to 45</strong>. The
-distribution appears fairly symmetric (skew = 0.30), though the extreme
-minimum value of 4 years likely reflects a data entry error or
-outlier.</li>
+<li>The <strong>average age</strong> of participants is <strong>26.04
+years</strong>, with a range from <strong>20 to 45</strong>. The
+distribution appears to be asymmetric (skew = 2.03), indicating a long
+right tail. This suggests that the largest age values are potential
+outliers.</li>
 <li>For <strong>weekly AI usage</strong>, students report using AI tools
 for an average of <strong>~7.0 hours</strong> per week (median = 5.0
 hours), with values ranging from <strong>0.5 to 28 hours</strong>. The
@@ -2554,7 +2558,7 @@ retention.</p>
 <h2>10. Appendix</h2>
 <pre><code>## R version 4.4.3 (2025-02-28)
 ## Platform: aarch64-apple-darwin20
-## Running under: macOS Sequoia 15.4.1
+## Running under: macOS Sequoia 15.5
 ## 
 ## Matrix products: default
 ## BLAS:   /Library/Frameworks/R.framework/Versions/4.4-arm64/Resources/lib/libRblas.0.dylib 

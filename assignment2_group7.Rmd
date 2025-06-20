@@ -3,10 +3,6 @@ title: "Survey Methods Assignment 2 – Group 7"
 author: "Group 7:Bashir Muhammad Sajid (52400204), Nicolas Bernal (12347489), Emma Desbois (12444747)"
 date: "`r Sys.Date()`"
 output:
-  html_document:
-    toc: true
-    toc_depth: '3'
-    df_print: paged
   pdf_document:
     toc: true
     toc_depth: 3
@@ -14,6 +10,10 @@ output:
     fig_caption: true
     latex_engine: xelatex
     keep_tex: true
+  html_document:
+    toc: true
+    toc_depth: '3'
+    df_print: paged
 subtitle: 105.708 Data Acquisition and Survey Methods (VU 2.0), Summer 2025
 ---
 
@@ -95,6 +95,10 @@ survey_data$ai_hours[62] <- 1.5
 # Convert age and ai_hours to numeric
 survey_data$age <- as.numeric(survey_data$age)
 survey_data$ai_hours <- as.numeric(survey_data$ai_hours)
+
+
+# This value is clearly wrong (4) so we changed it to the mean of ages
+survey_data$age[55] <- round(mean(survey_data$age))
 
 
 # Recheck structure
@@ -268,7 +272,7 @@ kable(numeric_summary, digits = 2, caption = "Summary Statistics for Age and Wee
 
 The summary statistics provide insights into the age distribution and weekly AI tool usage among the 98 student respondents:
 
-- The **average age** of participants is **25.8 years**, with a range from **4 to 45**. The distribution appears fairly symmetric (skew = 0.30), though the extreme minimum value of 4 years likely reflects a data entry error or outlier.
+- The **average age** of participants is **26.04 years**, with a range from **20 to 45**. The distribution appears to be asymmetric (skew = 2.03), indicating a long right tail. This suggests that the largest age values are potential outliers.
 - For **weekly AI usage**, students report using AI tools for an average of **~7.0 hours** per week (median = 5.0 hours), with values ranging from **0.5 to 28 hours**. The distribution is positively skewed (**skew = 1.32**), indicating that a few students reported very high usage levels.
 
 These figures offer a useful profile of the surveyed students and the intensity with which they incorporate AI tools into their academic routines.
